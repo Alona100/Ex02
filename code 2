@@ -2,49 +2,30 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
-namespace Ex01_02
+
+namespace Ex01_03
 {
-    public class Program
+    
+    internal class Program
     {
         public static void Main()
         {
-            PrintTreeRecursive(1, 7, 0); 
+            aDynamicABCTree();
         }
 
-        public static void PrintTreeRecursive(int i_row, int i_heightOfTree, int i_letterIndex)
+        private static void aDynamicABCTree()
         {
-            if (i_row > i_heightOfTree)
+            int heightOfTree = -1;
+
+            Console.Write("Please enter the height of the tree (max height 15): ");
+            while (!int.TryParse(Console.ReadLine(), out heightOfTree) || heightOfTree < 1 || heightOfTree > 15)
             {
-                return;
+                Console.WriteLine("Invalid input. Please enter a number between 1 and 15.");
             }
 
-            StringBuilder rowBuilder = new StringBuilder();
-            int spaces = 0;
-
-            rowBuilder.Append($"{(char)('A' + i_row - 1)}"); // change indexing to letters instead of numbers
-
-            if (i_row < i_heightOfTree - 1)
-            {
-                spaces = Math.Max(0, (i_heightOfTree * 2 - 2 * i_row)); // deleted the ending because we cant have 2 letters
-                rowBuilder.Append(new string(' ', spaces));
-                for (int col = 0; col < i_row * 2 - 1; col++)
-                {
-                    rowBuilder.Append(i_letterIndex + 1); // add the num version of letter index
-                    i_letterIndex = (i_letterIndex + 1) % 9; // because we don't deal with 0s...
-                    rowBuilder.Append(' ');
-                }
-            }
-            else
-            {
-                spaces = Math.Max(0, i_heightOfTree * 2 - 2); // deleted the ending because we cant have 2 letters
-                rowBuilder.Append(new string(' ', spaces));
-                rowBuilder.Append($"|{i_letterIndex + 1}|"); // change to numbers instead of letters
-            }
-
-            Console.WriteLine(rowBuilder.ToString());
-            Console.WriteLine();
-            PrintTreeRecursive(i_row + 1, i_heightOfTree, i_letterIndex);
+            Ex01_02.Program.PrintTreeRecursive(1, heightOfTree, 0);
         }
     }
 }
