@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace Ex01_02
 {
@@ -10,7 +9,7 @@ namespace Ex01_02
     {
         public static void Main()
         {
-            PrintTreeRecursive(1, 7, 0);
+            PrintTreeRecursive(1, 7, 0); 
         }
 
         public static void PrintTreeRecursive(int i_row, int i_heightOfTree, int i_letterIndex)
@@ -23,23 +22,24 @@ namespace Ex01_02
             StringBuilder rowBuilder = new StringBuilder();
             int spaces = 0;
 
-            rowBuilder.Append(i_row);
+            rowBuilder.Append($"{(char)('A' + i_row - 1)}"); 
+
             if (i_row < i_heightOfTree - 1)
             {
-                spaces = Math.Max(0, (i_heightOfTree * 2 - 2 * i_row) - (i_row >= 10 ? 1 : 0));
+                spaces = Math.Max(0, (i_heightOfTree * 2 - 2 * i_row)); 
                 rowBuilder.Append(new string(' ', spaces));
                 for (int col = 0; col < i_row * 2 - 1; col++)
                 {
-                    rowBuilder.Append($"{(char)('A' + i_letterIndex)}");
-                    i_letterIndex = (i_letterIndex + 1) % 26;
+                    rowBuilder.Append(i_letterIndex + 1); 
+                    i_letterIndex = (i_letterIndex + 1) % 9; 
                     rowBuilder.Append(' ');
                 }
             }
             else
             {
-                spaces = Math.Max(0, i_heightOfTree * 2 - 2 - (i_row >= 10 ? 2 : 1));
+                spaces = Math.Max(0, i_heightOfTree * 2 - 2); 
                 rowBuilder.Append(new string(' ', spaces));
-                rowBuilder.Append($"|{(char)('A' + i_letterIndex)}|");
+                rowBuilder.Append($"|{i_letterIndex + 1}|"); 
             }
 
             Console.WriteLine(rowBuilder.ToString());
